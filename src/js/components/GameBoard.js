@@ -1,11 +1,12 @@
 import React from 'react';
 import Table from './table/Table';
+import CSSModules from 'react-css-modules';
+import style from './GameBoard.css';
 
 /**
  * table row component
  */
-export
-default class GameBoard extends React.Component {
+class GameBoard extends React.Component {
   /**
    * constructor
    * @param {object} props
@@ -74,3 +75,5 @@ default class GameBoard extends React.Component {
     );
   }
 }
+
+export default CSSModules( GameBoard, style );
