@@ -1,0 +1,8 @@
+  .time {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background: url("./Time.img/icn_clock_01.png") no-repeat left center;
+    padding-left: 30px;
+  }
+

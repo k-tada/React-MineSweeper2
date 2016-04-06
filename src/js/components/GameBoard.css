@@ -1,1 +1,19 @@
+.board {
+  position: relative;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  padding: 45px 10px 10px;
+  margin: 0 auto;
+}
 
+.easy {
+  width: 310px;
+}
+
+.normal {
+  width: 490px;
+}
+
+.hard {
+  width: 590px;
+}
