@@ -1,0 +1,8 @@
+.flag {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: url("./Flag.img/icn_flag_01.png") no-repeat left center;
+  padding-left: 25px;
+}
+
