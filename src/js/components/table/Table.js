@@ -1,12 +1,14 @@
 import React from 'react';
 import Row from './Row.js';
 import update from 'react-addons-update';
+import CSSModules from 'react-css-modules';
+import style from './Table.css';
 
 /**
  * table row component
  */
-export
-default class Table extends React.Component {
+
+class Table extends React.Component {
   /**
    * constructor
    * @param {object} props
@@ -211,7 +213,7 @@ default class Table extends React.Component {
     });
 
     return (
-      <table className="Table">
+      <table styleName="table">
         <tbody>{ Rows }</tbody>
       </table>
     );
@@ -219,3 +221,4 @@ default class Table extends React.Component {
 
 }
 
+export default CSSModules( Table, style );

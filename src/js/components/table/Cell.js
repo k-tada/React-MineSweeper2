@@ -1,10 +1,11 @@
 import React from 'react';
+import CSSModules from 'react-css-modules';
+import style from './Cell.css';
 
 /**
  * table cell component
  */
-export
-default class Cell extends React.Component {
+class Cell extends React.Component {
   /**
    * constructor
    * @param {object} props
@@ -36,13 +37,7 @@ default class Cell extends React.Component {
    * @return {string} coverClass
    */
   getCoverClass() {
-    var coverClasses = [ 'Cell__cover' ];
-
-    if ( this.props.cell.isOpened ) {
-      coverClasses.push( 'Cell__cover--opened' );
-    }
-
-    return coverClasses.length > 0 ? coverClasses.join(' ') : '';
+    return ( this.props.cell.isOpened ) ? 'opened' : 'cover';
   }
 
   /**
@@ -64,9 +59,9 @@ default class Cell extends React.Component {
    */
   getCellClass() {
     return !!this.getCellStatus() ? {
-      open: 'Cell__number' + this.props.cell.count,
-      bomb: 'Cell__bomb',
-      flag: 'Cell__flag'
+      open: 'number' + this.props.cell.count,
+      bomb: 'bomb',
+      flag: 'flag'
     }[ this.getCellStatus() ] : '';
   }
 
@@ -88,11 +83,13 @@ default class Cell extends React.Component {
    */
   render(){
     return (
-      <td className="Cell" onClick={ this.open.bind(this) } onContextMenu={ this.mark.bind(this) }>
-        <div className={ this.getCoverClass() }>
-          <span className={ this.getCellClass() }>{ this.getCellText() }</span>
+      <td styleName="cell" onClick={ this.open.bind(this) } onContextMenu={ this.mark.bind(this) }>
+        <div styleName={ this.getCoverClass() }>
+          <span styleName={ this.getCellClass() }>{ this.getCellText() }</span>
         </div>
       </td>
     );
   }
 }
+
+export default CSSModules( Cell, style );
