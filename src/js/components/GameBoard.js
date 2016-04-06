@@ -1,6 +1,7 @@
 import React from 'react';
 import Table from './table/Table';
 import StatusBar from './statusBar/StatusBar';
+import Level from './statusBar/Level';
 import CSSModules from 'react-css-modules';
 import style from './GameBoard.css';
 
@@ -15,12 +16,14 @@ class GameBoard extends React.Component {
   constructor( props ) {
     super( props );
 
+    this.level_default = "easy";
+    this.levels = {
+      easy   : {level : "easy",   mineNum : 10,  size : [9 , 9]},
+      normal : {level : "normal", mineNum : 40,  size : [16, 16]},
+      hard   : {level : "hard",   mineNum : 100, size : [16, 30]}
+    };
+
     this.opts = {
-      level: {
-        level: 'easy',
-        mineNum: 10,
-        size: [9, 9]
-      },
       initial: {
         openNum: 0,
         flagNum: 0,
@@ -33,11 +36,16 @@ class GameBoard extends React.Component {
      * @type {object}
      * @property {Array} rows
      */
-    this.state = Object.assign( this.opts.level, this.opts.initial );
+    this.state = Object.assign( this.levels[ this.level_default ], this.opts.initial );
   }
 
   componentWillMount() {
     this.interval = null;
+  }
+
+  setLevel( level ) {
+    clearInterval( this.interval );
+    this.setState( Object.assign( this.levels[ level ], this.opts.initial ) );
   }
 
   reset() {
@@ -66,23 +74,25 @@ class GameBoard extends React.Component {
 
   render() {
     return (
-    //   <Level levels={ this.levels }
-    //          level={ this.state.level }
-    //          setLevel={ this.setLevel.bind(this) }
-    //   />
-      <div styleName={ "board " + this.state.level }>
-        <StatusBar flagNum={ this.state.mineNum - this.state.flagNum }
-                   reset={ this.reset.bind(this) }
-                   status={ this.state.status }
-                   time={ this.state.time }
+      <div>
+        <Level levels={ Object.keys( this.levels ) }
+               level={ this.state.level }
+               setLevel={ this.setLevel.bind(this) }
         />
-        <Table openNum={ this.state.openNum }
-               mineNum={ this.state.mineNum }
-               size={ this.state.size }
-               gameOver={ this.gameOver.bind(this) }
-               addOpenNum={ this.addOpenNum.bind(this) }
-               checkFlagNum={ this.checkFlagNum.bind(this) }
-        />
+        <div styleName={ "board " + this.state.level }>
+          <StatusBar flagNum={ this.state.mineNum - this.state.flagNum }
+                     reset={ this.reset.bind(this) }
+                     status={ this.state.status }
+                     time={ this.state.time }
+          />
+          <Table openNum={ this.state.openNum }
+                 mineNum={ this.state.mineNum }
+                 size={ this.state.size }
+                 gameOver={ this.gameOver.bind(this) }
+                 addOpenNum={ this.addOpenNum.bind(this) }
+                 checkFlagNum={ this.checkFlagNum.bind(this) }
+          />
+        </div>
       </div>
     );
   }
